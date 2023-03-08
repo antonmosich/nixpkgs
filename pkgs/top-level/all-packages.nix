@@ -31048,6 +31048,11 @@ with pkgs;
     pugixml = pugixml.override { shared = true; };
   };
 
+  ansel = callPackage ../applications/graphics/darktable/ansel.nix {
+    lua = lua5_4;
+    pugixml = pugixml.override { shared = true; };
+  };
+
   das_watchdog = callPackage ../tools/system/das_watchdog { };
 
   datadog-agent = callPackage ../tools/networking/dd-agent/datadog-agent.nix {
