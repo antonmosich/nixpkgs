@@ -927,8 +927,8 @@ let
         mktplcRef = {
           name = "gitlens";
           publisher = "eamodio";
-          version = "2023.2.1404";
-          sha256 = "sha256-hszwiETLDKqV4yqchPA1o3WuAgvmY2AwslvvbAhkRCE=";
+          version = "2023.2.2804";
+          sha256 = "sha256-3jQ0CpAGrPLQPpwZx2u3ylfOwy6cBu7WLr0w3h8IM2Y=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/eamodio.gitlens/changelog";
@@ -2597,8 +2597,8 @@ let
         mktplcRef = {
           name = "code-spell-checker";
           publisher = "streetsidesoftware";
-          version = "2.17.1";
-          sha256 = "sha256-gQSAq63fqniHmA9T0nKpUAzo+kpSCZzblr6FQ33LIPI=";
+          version = "2.19.0";
+          sha256 = "sha256-c95u++tkK8hToauulY8faNITUmsCBEeC2B8mHY0oEmA=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/streetsidesoftware.code-spell-checker/changelog";
