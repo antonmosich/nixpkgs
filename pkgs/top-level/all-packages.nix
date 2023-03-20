@@ -10349,6 +10349,10 @@ with pkgs;
 
   lux = callPackage ../tools/video/lux { };
 
+  lux-pv = callPackage ../applications/graphics/lux-pv {
+    stdenv = pkgs.clangStdenv;
+  };
+
   lv = callPackage ../tools/text/lv { };
 
   lwc = callPackage ../tools/misc/lwc { };
