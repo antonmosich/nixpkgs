@@ -1930,6 +1930,8 @@ with pkgs;
 
   snagboot = python3.pkgs.callPackage  ../applications/misc/snagboot { };
 
+  sheetable = callPackage ../servers/sheetable { };
+
   simple-dlna-browser = callPackage ../tools/networking/simple-dlna-browser { };
 
   sitespeed-io = callPackage ../tools/networking/sitespeed-io { };
