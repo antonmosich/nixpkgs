@@ -41773,6 +41773,8 @@ with pkgs;
 
   reindeer = callPackage ../development/tools/reindeer { };
 
+  magicseteditor = callPackage ../games/magicseteditor { };
+
   charasay = callPackage ../tools/misc/charasay { };
 
   libvoikko = callPackage ../development/libraries/libvoikko { };
