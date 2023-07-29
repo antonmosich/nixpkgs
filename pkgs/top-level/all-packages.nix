@@ -10068,6 +10068,8 @@ with pkgs;
 
   lemmy-help = callPackage ../tools/misc/lemmy-help { };
 
+  lemurs = callPackage ../applications/display-managers/lemurs { };
+
   lerpn = callPackage ../tools/misc/lerpn { };
 
   lethe = callPackage ../tools/security/lethe {
