@@ -7,6 +7,8 @@
 , wxGTK32
 , boost
 , hunspell
+, fontconfig
+, makeFontsConf
 }:
 
 stdenv.mkDerivation rec {
@@ -33,12 +35,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gcc cmake pkg-config wxGTK32 boost hunspell ];
 
   installPhase = ''
+    echo $FONTCONFIG_FILE
     install -D magicseteditor -t $out/bin
     mkdir -p $out/share/${pname}
+    mkdir -p $out/share/fonts
     cp -R ../../data/data $out/share/${pname}
     cp -R ../../data/resource $out/share/${pname}
+    cp -R ../../data/"Magic - Fonts"/* $out/share/fonts
   '';
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
-}
+  }
 
