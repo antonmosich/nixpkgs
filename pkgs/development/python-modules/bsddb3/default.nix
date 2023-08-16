@@ -3,6 +3,7 @@
 , fetchPypi
 , pkgs
 , python
+, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -27,6 +28,8 @@ buildPythonPackage rec {
   preConfigure = ''
     export BERKELEYDB_DIR=${pkgs.db.dev};
   '';
+
+  disabled = pythonOlder "3.9";
 
   meta = with lib; {
     description = "Python bindings for Oracle Berkeley DB";
