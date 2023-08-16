@@ -9,7 +9,7 @@
 let
   inherit (pythonPackages) python buildPythonApplication;
 in buildPythonApplication rec {
-  version = "5.1.4";
+  version = "5.1.6";
   pname = "gramps";
 
   nativeBuildInputs = [ wrapGAppsHook intltool gettext gobject-introspection ];
@@ -26,10 +26,10 @@ in buildPythonApplication rec {
     owner = "gramps-project";
     repo = "gramps";
     rev = "v${version}";
-    sha256 = "00358nzyw686ypqv45imc5k9frcqnhla0hpx9ynna3iy6iz5006x";
+    sha256 = "sha256-BerkDXdFYfZ3rV5AeMo/uk53IN2U5z4GFs757Ar26v0=";
   };
 
-  pythonPath = with pythonPackages; [ bsddb3 pyicu pygobject3 pycairo ];
+  pythonPath = with pythonPackages; [ berkeleydb pyicu pygobject3 pycairo ];
 
   # Same installPhase as in buildPythonApplication but without --old-and-unmanageble
   # install flag.
@@ -59,9 +59,11 @@ in buildPythonApplication rec {
   # https://nixos.org/manual/nixpkgs/stable/#ssec-gnome-hooks-gobject-introspection
   strictDeps = false;
 
-  meta = with lib; {
+  meta = {
     description = "Genealogy software";
     homepage = "https://gramps-project.org";
-    license = licenses.gpl2;
+    license = lib.licenses.gpl2;
+    mainProgram = "gramps";
+    maintainers = with lib.maintainers; [ antonmosich ];
   };
 }
