@@ -1,5 +1,5 @@
 { lib, fetchFromGitHub, gtk3, pythonPackages, intltool, gexiv2,
-  pango, gobject-introspection, wrapGAppsHook, gettext,
+  pango, gobject-introspection, wrapGAppsHook, gettext, glibcLocales,
 # Optional packages:
  enableOSM ? true, osm-gps-map, glib-networking,
  enableGraphviz ? true, graphviz,
@@ -54,6 +54,19 @@ in buildPythonApplication rec {
 
     runHook postInstall
   '';
+
+  nativeCheckInputs = (with pythonPackages; [
+  lxml
+  jsonschema
+  pytestCheckHook
+  ]);
+
+  preCheck = ''
+    # Test failing due to missing locale
+    export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive
+    # Many tests failing trying to write to $HOME
+    export HOME=$(mktemp -d)
+    '';
 
   # https://github.com/NixOS/nixpkgs/issues/149812
   # https://nixos.org/manual/nixpkgs/stable/#ssec-gnome-hooks-gobject-introspection
