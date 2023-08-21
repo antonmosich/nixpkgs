@@ -23212,11 +23212,13 @@ with pkgs;
 
   libmkv = callPackage ../development/libraries/libmkv { };
 
+<<<<<<< HEAD
   libnut = callPackage ../development/libraries/libnut { };
-
+=======
   liblu = callPackage ../development/libraries/liblu { };
 
   spokes = callPackage ../applications/graphics/spokes { };
+>>>>>>> 817ad94b2064 (Add non-working spokes)
 
   libmms = callPackage ../development/libraries/libmms { };
 
