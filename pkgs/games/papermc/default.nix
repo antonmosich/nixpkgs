@@ -1,15 +1,15 @@
 { lib, stdenv, fetchurl, bash, jre }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "papermc";
-  version = "1.20.1.83";
+  version = "1.20.1.169";
 
   jar = let
-    mcVersion = lib.versions.pad 3 version;
-    buildNum = builtins.elemAt (lib.versions.splitVersion version) 3;
+    mcVersion = lib.versions.pad 3 finalAttrs.version;
+    buildNum = builtins.elemAt (lib.versions.splitVersion finalAttrs.version) 3;
   in fetchurl {
     url = "https://papermc.io/api/v2/projects/paper/versions/${mcVersion}/builds/${buildNum}/downloads/paper-${mcVersion}-${buildNum}.jar";
-    sha256 = "sha256-HQpc3MOXa1wkXqgm9ciQj04FUIyuupnYiu+2RZ/sXE4=";
+    sha256 = "sha256-hvf14DtDmRwYlwKBB/L6zgUrDMvdFLV3oeISd698vRE=";
   };
 
   preferLocalBuild = true;
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm444 ${jar} $out/share/papermc/papermc.jar
+    install -Dm444 ${finalAttrs.jar} $out/share/papermc/papermc.jar
     install -Dm555 -t $out/bin minecraft-server
   '';
 
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ aaronjanse neonfuz ];
     mainProgram = "minecraft-server";
   };
-}
+})
