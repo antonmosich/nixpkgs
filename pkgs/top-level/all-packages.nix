@@ -23018,6 +23018,8 @@ with pkgs;
 
   libewf = callPackage ../development/libraries/libewf { };
 
+  libewf-legacy = callPackage ../development/libraries/libewf/legacy.nix { };
+
   libexif = callPackage ../development/libraries/libexif { };
 
   libexosip = callPackage ../development/libraries/exosip { };
