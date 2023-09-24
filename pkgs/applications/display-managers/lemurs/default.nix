@@ -1,10 +1,10 @@
-{
-  fetchFromGitHub,
-  lib,
-  linux-pam,
-  rustPlatform,
-  testers,
-  lemurs,
+{ fetchFromGitHub
+, lib
+, linux-pam
+, rustPlatform
+, testers
+, lemurs
+, xorg
 }:
 rustPlatform.buildRustPackage rec {
   pname = "lemurs";
@@ -19,11 +19,19 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-uuHPJe+1VsnLRGbHtgTMrib6Tk359cwTDVfvtHnDToo=";
 
+  patchPhase = ''
+    substituteInPlace src/post_login/x.rs \
+      --replace "/usr/bin/xauth" "${lib.getExe xorg.xauth}"
+      --replace "/usr/bin/X" "${lib.getExe xorg.xorgserver}"
+  '';
+
   # Fixes a lock issue
   preConfigure = "cargo update --offline";
 
   buildInputs = [
     linux-pam
+    xorg.xauth
+    xorg.xorgserver
   ];
 
   passthru.tests.version = testers.testVersion {
