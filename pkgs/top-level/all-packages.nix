@@ -42311,4 +42311,6 @@ with pkgs;
   ssl-proxy = callPackage ../tools/networking/ssl-proxy { };
 
   code-maat = callPackage ../development/tools/code-maat {};
+
+  guymager = libsForQt5.callPackage ../applications/backup/guymager { };
 }
