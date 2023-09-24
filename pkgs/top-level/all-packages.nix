@@ -42288,6 +42288,8 @@ with pkgs;
 
   omorfi = callPackage ../development/libraries/omorfi { };
 
+  libguytools = libsForQt5.callPackage ../development/libraries/libguytools { };
+
   hfst-ospell = callPackage ../development/libraries/hfst-ospell { };
 
   waylyrics = callPackage ../applications/audio/waylyrics { };
