@@ -2954,6 +2954,8 @@ with pkgs;
 
   walk = callPackage ../applications/file-managers/walk { };
 
+  warfork = callPackage ../games/warfork { };
+
   worker = callPackage ../applications/file-managers/worker { };
 
   xfe = callPackage ../applications/file-managers/xfe {
