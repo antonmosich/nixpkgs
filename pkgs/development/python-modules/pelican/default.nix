@@ -12,30 +12,34 @@
 , markdown
 , markupsafe
 , mock
-, pytestCheckHook
+, ordered-set
 , pandoc
+, pdm-backend
 , pillow
 , pygments
+, pytest-xdist
+, pytestCheckHook
 , python-dateutil
 , pythonOlder
 , pytz
 , rich
-, pytest-xdist
 , six
 , typogrify
 , unidecode
+, watchfiles
 }:
 
 buildPythonPackage rec {
   pname = "pelican";
-  version = "4.8.0";
-  disabled = pythonOlder "3.6";
+  version = "4.9.1";
+  disabled = pythonOlder "3.8";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "getpelican";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-T+XBRBfroG1gh9ZHU7V5wsgnI1xuNTXYAe6g5Xk8Qyg=";
+    hash = "sha256-nz2OnxJ4mGgnafz4Xp8K/BTyVgXNpNYqteNL1owP8Hk=";
     # Remove unicode file names which leads to different checksums on HFS+
     # vs. other filesystems because of unicode normalisation.
     postFetch = ''
@@ -44,6 +48,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [
+    pdm-backend
     glibcLocales
     pandoc
     git
@@ -60,6 +65,7 @@ buildPythonPackage rec {
     jinja2
     lxml
     markupsafe
+    ordered-set
     pillow
     pygments
     python-dateutil
@@ -67,28 +73,19 @@ buildPythonPackage rec {
     rich
     six
     unidecode
+    watchfiles
   ];
 
   nativeCheckInputs = [
     pytest-xdist
     pytestCheckHook
     pandoc
-  ];
-
-  postPatch = ''
-    substituteInPlace pelican/tests/test_pelican.py \
-      --replace "'git'" "'${git}/bin/git'"
-  '';
-
-  pytestFlagsArray = [
-    # DeprecationWarning: 'jinja2.Markup' is deprecated and...
-    "-W ignore::DeprecationWarning"
+    git
   ];
 
   disabledTests = [
     # AssertionError
-    "test_basic_generation_works"
-    "test_custom_generation_works"
+    "test_blinker_is_ordered"
     "test_custom_locale_generation_works"
   ];
 
