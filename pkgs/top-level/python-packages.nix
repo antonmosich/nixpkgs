@@ -15779,6 +15779,10 @@ self: super: with self; {
 
   viv-utils = callPackage ../development/python-modules/viv-utils { };
 
+  vl-convert-python = callPackage ../development/python-modules/vl-convert {
+    inherit (pkgs) protobuf;
+  };
+
   vmprof = callPackage ../development/python-modules/vmprof { };
 
   vncdo = callPackage ../development/python-modules/vncdo { };
