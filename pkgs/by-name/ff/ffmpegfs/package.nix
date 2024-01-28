@@ -38,4 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
     libbluray
     libdvdread
   ];
+  postInstall = ''
+    ln -s $out/bin $out/sbin
+    ln -s $out/bin/ffmpegfs $out/bin/mount.ffmpegfs
+    # ln -s $out/bin/ffmpegfs $out/bin/mount.fuse.ffmpegfs
+    '';
 })
