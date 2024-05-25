@@ -3100,6 +3100,8 @@ self: super: with self; {
 
   dissononce = callPackage ../development/python-modules/dissononce { };
 
+  distance = callPackage ../development/python-modules/distance { };
+
   distlib = callPackage ../development/python-modules/distlib { };
 
   distorm3 = callPackage ../development/python-modules/distorm3 { };
