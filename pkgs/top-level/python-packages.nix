@@ -13107,6 +13107,8 @@ self: super: with self; {
 
   reedsolo = callPackage ../development/python-modules/reedsolo { };
 
+  reedsolo2 = callPackage ../development/python-modules/reedsolo/2.nix { };
+
   referencing = callPackage ../development/python-modules/referencing { };
 
   refery = callPackage ../development/python-modules/refery { };
