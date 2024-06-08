@@ -10,6 +10,7 @@
 , sphinxHook
 , runtimeShell
 , writeScript
+, installShellFiles
 
   # plugin deps
 , aacgain
@@ -107,8 +108,9 @@ python3Packages.buildPythonApplication {
   sphinxBuilders = [ "html" "man" ];
 
   postInstall = ''
-    mkdir -p $out/share/zsh/site-functions
-    cp extra/_beet $out/share/zsh/site-functions/
+    installShellCompletion --cmd beet \
+      --zsh extra/_beet \
+      --bash <($out/bin/beet completion)
   '';
 
   makeWrapperArgs = [
