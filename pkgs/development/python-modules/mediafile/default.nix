@@ -7,25 +7,26 @@
   pytestCheckHook,
   pythonOlder,
   six,
+  nix-update-script,
 }:
 
 buildPythonPackage rec {
   pname = "mediafile";
-  version = "0.12.0";
-  format = "pyproject";
+  version = "0.13.0";
+  pyproject = true;
 
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "beetbox";
-    repo = pname;
+    repo = "mediafile";
     rev = "v${version}";
-    hash = "sha256-5HHfG1hCIbM/QSXgB61yHNNWJTsuyAh6CQJ7SZhZuvo=";
+    hash = "sha256-Knp91nVPFkE2qYSZoWcOsMBNY+OBfWCPPNn+T1L8v0o=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  build-system = [ flit-core ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     mutagen
     six
   ];
@@ -34,10 +35,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mediafile" ];
 
-  meta = with lib; {
+  passthru.updateScript = nix-update-script { };
+
+  meta = {
     description = "Python interface to the metadata tags for many audio file formats";
     homepage = "https://github.com/beetbox/mediafile";
-    license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ lovesegfault ];
   };
 }
