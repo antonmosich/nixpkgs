@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromSourcehut,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -26,6 +27,8 @@ buildGoModule rec {
     mkdir -p $out/share/qcal
     cp config-sample.json $out/share/qcal/
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "CLI calendar application for CalDAV servers written in Go";
