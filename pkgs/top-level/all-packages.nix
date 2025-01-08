@@ -11868,8 +11868,6 @@ with pkgs;
     elixir = elixir_1_17.override { inherit erlang; };
   };
 
-  qcal = callPackage ../tools/networking/qcal/default.nix { };
-
   rake = callPackage ../development/tools/build-managers/rake { };
 
   restic = callPackage ../tools/backup/restic { };
