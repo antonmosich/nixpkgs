@@ -14686,6 +14686,8 @@ self: super: with self; {
 
   sfrbox-api = callPackage ../development/python-modules/sfrbox-api { };
 
+  sftkit = callPackage ../development/python-modules/sftkit { };
+
   sgmllib3k = callPackage ../development/python-modules/sgmllib3k { };
 
   sgp4 = callPackage ../development/python-modules/sgp4 { };
