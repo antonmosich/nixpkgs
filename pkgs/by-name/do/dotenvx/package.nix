@@ -30,7 +30,7 @@ buildNpmPackage rec {
   };
 
   meta = {
-    description = "Better dotenv–from the creator of `dotenv";
+    description = "Better dotenv–from the creator of `dotenv`";
     homepage = "https://github.com/dotenvx/dotenvx";
     changelog = "https://github.com/dotenvx/dotenvx/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.bsd3;
