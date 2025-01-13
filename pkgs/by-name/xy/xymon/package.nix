@@ -1,13 +1,14 @@
 {
   lib,
+  fetchFromGitHub,
   fetchurl,
   stdenv,
   pcre,
   openssl,
   rrdtool,
   c-ares,
-  openldap,
   libtirpc,
+  fping,
   ...
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -22,13 +23,30 @@ stdenv.mkDerivation (finalAttrs: {
     libtirpc
     pcre
     openssl
-    rrdtool
-    openldap
+    (rrdtool.overrideAttrs rec {
+      version = "1.4.9";
+      src = fetchFromGitHub {
+        owner = "oetiker";
+        repo = "rrdtool-1.x";
+        rev = "v${version}";
+        hash = "sha256-+OSMea2/y6roWpFgZP51HtlXZCH0Y3NnNwR5WObK7b4=";
+      };
+    })
     c-ares
   ];
 
-  ENABLESSL="y";
-  XYMONTOPDIR="$out";
+  env = {
+    ENABLESSL = "y";
+    XYMONTOPDIR = "$out";
+    USERFPING = lib.getExe fping;
+  };
+
+  patchPhase = ''
+    runHook prePatch
+    substituteInPlace build/Makefile.Linux --replace-fail \
+    /usr/include/tirpc ${libtirpc.dev}/include/tirpc
+    runHook postPatch
+  '';
 
   configurePhase = ''
     runHook preConfigure
