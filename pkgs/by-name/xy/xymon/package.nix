@@ -37,8 +37,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   env = {
     ENABLESSL = "y";
-    XYMONTOPDIR = "$out";
+    # XYMONTOPDIR = "\${out}";
+    XYMONTOPDIR = "/";
+    INSTALLROOT = "\${out}";
     USERFPING = lib.getExe fping;
+    PKGBUILD=1;
   };
 
   patchPhase = ''
