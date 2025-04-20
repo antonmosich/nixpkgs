@@ -1,5 +1,6 @@
 {
   lib,
+  buildPackages,
   stdenv,
   src,
   version,
@@ -132,10 +133,18 @@ python3Packages.buildPythonApplication {
     "man"
   ];
 
-  postInstall = ''
-    mkdir -p $out/share/zsh/site-functions
-    cp extra/_beet $out/share/zsh/site-functions/
-  '';
+  postInstall =
+    ''
+      installShellCompletion --zsh extra/_beet
+    ''
+    + lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
+      let
+        emulator = stdenv.hostPlatform.emulator buildPackages;
+      in
+      ''
+        installShellCompletion --cmd beet --bash <(${emulator} $out/bin/beet completion)
+      ''
+    );
 
   makeWrapperArgs = [
     "--set GI_TYPELIB_PATH \"$GI_TYPELIB_PATH\""
