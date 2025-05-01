@@ -1,30 +1,37 @@
 {
   lib,
-  python3,
-  fetchPypi,
+  python3Packages,
+  fetchFromGitHub,
+  versionCheckHook,
   khard,
   testers,
+  nix-update-script,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   version = "0.19.1";
   pname = "khard";
+  pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-WfMKDaPD2j6wT02+GO5HY5E7aF2Z7IQY/VdKiMSRxJA=";
+  src = fetchFromGitHub {
+    owner = "lucc";
+    repo = "khard";
+    tag = "v${version}";
+    hash = "sha256-5+28p1yPkdfnARvNQSfHWvj746u4mONaUBW1xAPXfM4=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools-scm
+  build-system = [ python3Packages.setuptools-scm ];
+
+  nativeBuildInputs = with python3Packages; [
     sphinxHook
     sphinx-autoapi
     sphinx-autodoc-typehints
+    sphinx-argparse
   ];
 
   sphinxBuilders = [ "man" ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  dependencies = with python3Packages; [
     atomicwrites
     configobj
     ruamel-yaml
@@ -33,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   postInstall = ''
-    install -D misc/zsh/_khard $out/share/zsh/site-functions/_khard
+    installShellCompletion --zsh misc/zsh/_khard
   '';
 
   preCheck = ''
@@ -43,10 +50,15 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "khard" ];
 
-  passthru.tests.version = testers.testVersion { package = khard; };
+  nativeCheckInputs = [ versionCheckHook ];
+
+  passthru = {
+    tests.version = testers.testVersion { package = khard; };
+    updateScript = nix-update-script { };
+  };
 
   meta = {
-    homepage = "https://github.com/scheibler/khard";
+    homepage = "https://github.com/lucc/khard";
     description = "Console carddav client";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ matthiasbeyer ];
