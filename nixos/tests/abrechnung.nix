@@ -22,8 +22,14 @@ import ./make-test-python.nix (
               base_url = "";
               host = "";
               port = 1337;
+              id = "default";
+            };
+            registration = {
+              enabled = true;
+              require_email_confirmation = false;
             };
             database = {
+              user = "abrechnung";
               dbname = "abrechnung";
             };
             service = {
@@ -34,11 +40,22 @@ import ./make-test-python.nix (
       };
     };
 
+    interactive.nodes.server = {
+      networking.firewall.enable = false;
+      virtualisation.forwardPorts = [
+        {
+          from = "host";
+          host.port = 8080;
+          guest.port = 80;
+        }
+      ];
+    };
+
     testScript = ''
       start_all()
       server.wait_for_unit("abrechnung-api.service")
-      server.wait_for_open_port(8080)
-      server.succeed("curl --fail http://localhost:8080")
+      server.wait_for_open_port(1337)
+      server.succeed("curl --fail http://localhost")
     '';
   }
 )
