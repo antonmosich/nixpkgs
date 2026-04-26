@@ -3,6 +3,14 @@
   fetchFromGitHub,
   lib,
   openssl,
+  glib,
+  cairo,
+  gdk-pixbuf,
+  pango,
+  graphene,
+  gtk4,
+  libsoup_3,
+  webkitgtk_6_0,
   pkg-config,
   protobuf,
   rustPlatform,
@@ -10,16 +18,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "qobuz-player";
-  version = "0.9.0";
+  version = "0.10.2";
 
   src = fetchFromGitHub {
     owner = "SofusA";
     repo = "qobuz-player";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-uslU/HQognLMNz/w9hMdtpzby2neE+VC8Y+RV2XMd7Q=";
+    hash = "sha256-XrPgqtondZCOMB5TDXhz4rqdVn5JzLrs9+KfHOasSKA=";
   };
 
-  cargoHash = "sha256-vcII4SDE5zOgzS83CCLhffc7OEksmcMtXYb76r6M1JM=";
+  cargoHash = "sha256-XPJVf0ycVceVd5cuXFyZQCrZ+e1Ak+1V6EIu2uCJtAs=";
 
   nativeBuildInputs = [
     pkg-config
@@ -29,6 +37,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     alsa-lib
     openssl
+    glib
+    cairo
+    gdk-pixbuf
+    pango
+    graphene
+    gtk4
+    libsoup_3
+    webkitgtk_6_0
   ];
 
   meta = {
